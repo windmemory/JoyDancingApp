@@ -8,3 +8,5 @@ const publicCourseReducer = (state = {}, action) => {
       return state;
   }
 }
+
+export default publicCourseReducer;

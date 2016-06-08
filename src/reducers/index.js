@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import userReducer from './userReducer';
 import publicCourseReducer from './publicCourseReducer';
+import tabBarReducer from './tabBarReducer';
 
-export default rootReducer = () => {
-  return combineReducers({
-    user: userReducer,
-    publicCourse: publicCourseReducer,
-  });
-}
+const rootReducer = combineReducers({
+  user: userReducer,
+  publicCourse: publicCourseReducer,
+  tabBar: tabBarReducer,
+});
+
+export default rootReducer;
