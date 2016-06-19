@@ -1,9 +1,17 @@
-import { GET_COURSES } from '../actions/publicCourseActions';
+import { UPDATE_COURSE } from '../actions/publicCourseActions';
 
-const publicCourseReducer = (state = ['111', '222'], action) => {
-  switch(action.type) {
-    case GET_COURSES:
-      return state;
+const initialState = {
+  courses: [
+    '111',
+    '222',
+  ],
+  lastUpdated: Date.now()
+}
+
+const publicCourseReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case UPDATE_COURSE:
+      return Object.assign({}, state, {courses: action.payload});
     default:
       return state;
   }

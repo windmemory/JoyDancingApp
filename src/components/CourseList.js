@@ -21,7 +21,7 @@ let CourseList = React.createClass ({
 })
 
 const mapStateToProps = (state) => ({
-  courses: state.publicCourse,
+  courses: state.publicCourse.courses,
 });
 
 

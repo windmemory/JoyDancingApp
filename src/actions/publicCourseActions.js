@@ -1,12 +1,18 @@
-import Parse from 'parse/react-native';
-import { applicationId, serverURL } from '../appConfig';
+import { getCourses } from '../module/dataAccess';
 
-Parse.initialize(applicationId);
-Parse.serverURL = serverURL;
+const updateInterval = -1//5 * 60 * 1000;
 
-const GET_COURSES = 'GET_COURSES';
-const getCourses = () => {
+export const UPDATE_COURSE = 'UPDATE_COURSE';
+export const updateCourses = () => {
   return (dispatch, getState) => {
-    Parse.Query.find()
+    console.log('updating courses');
+    if (Date.now() - getState().publicCourse.lastUpdated > updateInterval){
+      getCourses().then(newCourses => {
+        dispatch({
+          type: UPDATE_COURSE,
+          payload: newCourses,
+        })
+      });
+    }
   }
 }
