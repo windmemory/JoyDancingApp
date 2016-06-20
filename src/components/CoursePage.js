@@ -6,7 +6,6 @@ import { updateCourses } from '../actions/publicCourseActions';
 
 let CoursePage = React.createClass ({
   componentWillMount() {
-    console.log('Course page will mount');
     this.props.updateCourses();
   },
   render() {
