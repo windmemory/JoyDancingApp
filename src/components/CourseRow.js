@@ -6,7 +6,7 @@ let CourseRow = React.createClass({
   render() {
     if (this.props.course === undefined) return;
     const { name, dancer } = this.props.course;
-    const totalPart = Object.keys(this.props.course.videos).length - 1;
+    const totalPart = this.props.course.videos.length / 2 - 1;
     return (
       <TouchableOpacity onPress={() => Actions.courseDetail({title: this.props.course.name, course: this.props.course})}>
         <View style={styles.container}>
