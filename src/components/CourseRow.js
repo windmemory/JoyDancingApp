@@ -5,13 +5,13 @@ import { Actions } from 'react-native-router-flux';
 let CourseRow = React.createClass({
   render() {
     if (this.props.course === undefined) return;
-    const { name, dancer } = this.props.course;
+    const { name, dancer, coverLink } = this.props.course;
     const totalPart = this.props.course.videos.length / 2 - 1;
     return (
       <TouchableOpacity onPress={() => Actions.courseDetail({title: this.props.course.name, course: this.props.course})}>
         <View style={styles.container}>
           <Image
-            source={require('../../testAssets/superstar.jpg')}
+            source={{uri: coverLink}}
             style={styles.image} />
           <View style={styles.infoBox}>
             <View style={styles.textBox}>
