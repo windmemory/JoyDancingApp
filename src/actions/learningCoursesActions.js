@@ -6,8 +6,10 @@ export const addCourseToLearn = (course) => ({
   payload: course,
 })
 
-export const downloadVideo = (video) => {
+export const downloadVideo = (video, progressCallback) => {
   return (dispatch, getState) => {
-    downloadSingleVideo(video);
+    downloadSingleVideo(video, progressCallback).then((results) => {
+      
+    });
   }
 }
