@@ -8,8 +8,8 @@ export const addCourseToLearn = (course) => ({
 
 export const downloadVideo = (video, progressCallback) => {
   return (dispatch, getState) => {
-    downloadSingleVideo(video, progressCallback).then((results) => {
-      
+    downloadSingleVideo(video, progressCallback).then((result) => {
+
     });
   }
 }

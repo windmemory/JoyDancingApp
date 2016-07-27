@@ -9,7 +9,7 @@ export const updateCourses = () => {
       getCourses().then(newCourses => {
         dispatch({
           type: UPDATE_COURSE,
-          payload: newCourses,
+          payload: newCourses.results,
         })
       });
     }
