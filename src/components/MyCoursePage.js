@@ -23,7 +23,7 @@ let MyCoursePage = React.createClass ({
         enableEmptySections={true}
         style={styles.list}
         dataSource={this.state.dataSource}
-        renderRow={(rowData) => <MyCourseRow course={rowData}/>}
+        renderRow={(rowData) => <MyCourseRow courseId={rowData.objectId}/>}
       />
     )
   }
@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => ({
   courses: state.learningCourses,
 });
-
 
 MyCoursePage = connect(mapStateToProps)(MyCoursePage);
 

@@ -1,13 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-let CourseRow = React.createClass({
+let MyCourseRow = React.createClass({
   render() {
     if (this.props.course === undefined) return;
     const { name, dancer, coverLink, videos } = this.props.course;
     const totalPart = videos.length / 2 - 1;
-    const learnedPart = videos.map((video) => video.played ? 1 : 0).reduce((prev, cur) => prev + cur);
+    const learnedPart = videos.map((video) => video.playProgress !== 0.0 ? 1 : 0).reduce((prev, cur) => prev + cur);
     return (
       <TouchableOpacity onPress={() => Actions.myCourseDetail({title: this.props.course.name, course: this.props.course})}>
         <View style={styles.container}>
@@ -80,4 +81,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CourseRow;
+const mapStateToProps = (state, ownProps) => ({
+  course: state.learningCourses.filter(course => course.objectId === ownProps.courseId)[0],
+})
+
+MyCourseRow = connect(mapStateToProps)(MyCourseRow);
+
+export default MyCourseRow;

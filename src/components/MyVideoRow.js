@@ -12,23 +12,17 @@ let MyVideoRow = React.createClass({
   },
   render() {
     const { initDownload, video } = this.props;
-    const { downloaded, played, name } = video;
-    const updateProgress = (progress) => {
-      const percentage = (progress.bytesWritten / progress.contentLength).toFixed(2);
-      console.log(`progress: ${percentage}`)
-      this.setState({progress: percentage});
-    }
+    console.log(video);
+    const { downloadProgress, playProgress, name } = video;
     return (
       <TouchableOpacity>
         <View style={styles.videoRow}>
           <Text style={{color: 'white', flex: 1}}>{generateVideoName(name)}</Text>
-          <TouchableOpacity onPress={!downloaded ? () => initDownload(video, updateProgress) : () => {}}>
+          <TouchableOpacity onPress={downloadProgress === -1 ? () => initDownload(video) : () => {}}>
             <Text style={{color: 'white', flex: 1}}>{
-              !downloaded ? '下载' :
-              !played ? '还没学' : '学完了'
+              downloadProgress === -1 ? '下载' : downloadProgress
             }</Text>
           </TouchableOpacity>
-          <Text style={{color: 'white'}}>{this.state.progress}</Text>
         </View>
       </TouchableOpacity>
     )
@@ -48,10 +42,17 @@ const styles = StyleSheet.create({
   },
 })
 
+const mapStateToProps = (state, ownProps) => {
+  const keys = ownProps.videoId.split('-');
+  return {
+    video: state.learningCourses.filter(course => course.objectId === keys[0])[0].videos[keys[1]],
+  }
+}
+
 const mapDispatchToProps = (dispatch) => ({
-  initDownload: (video, updateProgress) => dispatch(downloadVideo(video, updateProgress)),
+  initDownload: (video) => dispatch(downloadVideo(video)),
 })
 
-MyVideoRow = connect(null, mapDispatchToProps)(MyVideoRow);
+MyVideoRow = connect(mapStateToProps, mapDispatchToProps)(MyVideoRow);
 
 export default MyVideoRow;

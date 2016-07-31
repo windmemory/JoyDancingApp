@@ -18,7 +18,7 @@ let MyCourseDetailPage = React.createClass({
                     scrollEnabled={true}
                     showsVerticalScrollIndicator={false}>
           {videos.map((video, index) => (
-            <MyVideoRow video={video} key={index}/>
+            <MyVideoRow videoId={video.videoId} key={index}/>
           ))}
         </ScrollView>
       </View>
@@ -36,7 +36,5 @@ const styles = StyleSheet.create({
     paddingTop: 64,
   },
 })
-
-
 
 export default MyCourseDetailPage;
