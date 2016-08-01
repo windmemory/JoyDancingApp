@@ -9,14 +9,14 @@ export const downloadSingleVideo = (video, progressCallback, beginProgressCallba
   }).then(() => {
     return fs.downloadFile({
       fromUrl: video.highLink,
-      toFile: `${folderPath}/${video.name}`,
+      toFile: `${folderPath}/${video.name}.mp4`,
       progressDivider: 100,
       begin: beginProgressCallback,
       progress: progressCallback,
     });
   }).then((result) => ({
       downloadResult: result,
-      filePath: `${folderPath}/${video.name}`,
+      filePath: `${folderPath}/${video.name}.mp4`,
       videoId: video.videoId,
   }))
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import { downloadVideo } from '../actions/learningCoursesActions';
 import { generateVideoName } from '../module/nameGenerator';
 
@@ -12,15 +13,15 @@ let MyVideoRow = React.createClass({
   },
   render() {
     const { initDownload, video } = this.props;
-    console.log(video);
-    const { downloadProgress, playProgress, name } = video;
+    const { downloadProgress, playProgress, name, localFilePath } = video;
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={localFilePath !== undefined ? () => Actions.videoPlayer({video}) : () => {}}>
         <View style={styles.videoRow}>
           <Text style={{color: 'white', flex: 1}}>{generateVideoName(name)}</Text>
           <TouchableOpacity onPress={downloadProgress === -1 ? () => initDownload(video) : () => {}}>
             <Text style={{color: 'white', flex: 1}}>{
-              downloadProgress === -1 ? '下载' : downloadProgress
+              downloadProgress === -1 ? '下载' :
+              downloadProgress === '1.00' ? '完成' : downloadProgress
             }</Text>
           </TouchableOpacity>
         </View>

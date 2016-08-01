@@ -9,6 +9,7 @@ import UserPage from './components/UserPage';
 import TabItem from './components/TabItem';
 import CourseDetailPage from './components/CourseDetailPage';
 import MyCourseDetail from './components/MyCourseDetail';
+import VideoPlayer from './components/VideoPlayer';
 
 import createStore from './createStore'
 
@@ -26,6 +27,7 @@ const JoyDancingApp = () => {
         </Scene>
         <Scene key="courseDetail" component={CourseDetailPage} />
         <Scene key="myCourseDetail" component={MyCourseDetail} />
+        <Scene key="videoPlayer" component={VideoPlayer} hideNavBar={true}/>
       </RouterWithRedux>
     </Provider>
   )
