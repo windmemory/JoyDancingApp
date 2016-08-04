@@ -4,17 +4,56 @@ import Video from 'react-native-video';
 import { Actions } from 'react-native-router-flux';
 
 let VideoPlayer = React.createClass({
-
+  getInitialState() {
+    return {
+      rate: 1,
+      volume: 1,
+      paused: false,
+      currentTime: 0.0,
+      duration: 0.0,
+      hideControl: false,
+    }
+  },
   render() {
     const { video } = this.props;
+    const onLoad = (data) => {
+      this.setState({duration: data.duration});
+    };
+    const onProgress = (data) => {
+      this.setState({currentTime: data.currentTime});
+    };
+    const getCurrentTimePercentage = () => {
+      if (this.state.currentTime > 0) {
+        return parseFloat(this.state.currentTime) / parseFloat(this.state.duration);
+      } else {
+        return 0;
+      }
+    }
+    const flexCompleted = getCurrentTimePercentage() * 100;
+    const flexRemaining = (1 - getCurrentTimePercentage()) * 100;
     return (
-      <View style={styles.background}>
+      <View style={styles.container}>
         <StatusBar hidden={true}/>
-        <Video
-          source={{uri:video.localFilePath}}
-          style={styles.videoPlayer}
-          resizeMode="cover"
-        />
+        <View style={styles.wrapper}>
+          <Video
+            source={{uri:video.localFilePath}}
+            style={styles.videoPlayer}
+            resizeMode="cover"
+            onLoad={onLoad}
+            onProgress={onProgress}
+            rate={this.state.rate}
+            volume={this.state.volune}
+            paused={this.state.paused}
+          />
+          <View style={styles.control}>
+            <View>
+              <View style={styles.progress}>
+                <View style={[styles.innerProgressCompleted, {flex: flexCompleted}]} />
+                <View style={[styles.innerProgressRemaining, {flex: flexRemaining}]} />
+              </View>
+            </View>
+          </View>
+        </View>
       </View>
     )
   }
@@ -29,12 +68,39 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
   },
-  background: {
+  control: {
+    backgroundColor: "transparent",
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
+  wrapper: {
+    width: height,
+    height: width,
+    transform: [{rotate: '90deg'}],
+  },
+  container: {
     flex: 1,
-    backgroundColor: 'black',
-    alignItems: 'center',
     justifyContent: 'center',
-  }
+    alignItems: 'center',
+    backgroundColor: 'black',
+  },
+  innerProgressCompleted: {
+    height: 20,
+    backgroundColor: '#cccccc',
+  },
+  innerProgressRemaining: {
+    height: 20,
+    backgroundColor: '#2C2C2C',
+  },
+  progress: {
+    flex: 1,
+    flexDirection: 'row',
+    borderRadius: 3,
+    overflow: 'hidden',
+  },
 })
 
 export default VideoPlayer;
