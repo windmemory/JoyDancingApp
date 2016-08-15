@@ -10,7 +10,7 @@ export const downloadSingleVideo = (video, progressCallback, beginProgressCallba
     return fs.downloadFile({
       fromUrl: video.highLink,
       toFile: `${folderPath}/${video.name}.mp4`,
-      progressDivider: 100,
+      progressDivider: 1,
       begin: beginProgressCallback,
       progress: progressCallback,
     });
